@@ -1,0 +1,313 @@
+:root{
+    --background-color: #030F11;
+    --secondary-color: #FEFFFE;
+    --accent-color: #5A3ABB;
+}
+
+body{
+    background-color: var(--background-color);
+    color: white;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: bold;
+    font-size: 1.5em;
+    overflow: hidden;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    text-decoration: none;
+    user-select: none;
+    cursor: default;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.player-info, .win-div{
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+}
+
+.turn, .winner{
+    background-color: var(--accent-color);
+    padding: 10px;
+    border-radius: 10px;
+    height: 32px;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.credits{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.credits p{
+    padding: 0;
+    margin: 0;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
+    gap: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.big-board {
+    display: grid;
+    grid-template-columns: repeat(3, 162px);
+    grid-template-rows: repeat(3, 162px);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: 900;
+    transition: background-color 0.8s ease-out, color 0.8s ease-out, transform 0.2s ease, rotate 0.2s ease;
+    border-radius: 6px;
+}
+
+
+.open-cell{
+    background-color: var(--secondary-color);
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.open-cell:hover {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    transform: scale(0.9);
+    rotate: 3deg;
+}
+
+.closed-cell {
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+    cursor: default;
+}
+
+.clicked-cell{
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    cursor: default;
+}
+
+.closed-sleeping-cell{
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    opacity: 0.2;
+}
+
+.open-sleeping-cell{
+    box-sizing: border-box;
+    border: 3px solid var(--secondary-color);
+    background-color: var(--background-color);
+    opacity: 0.2;
+}
+
+.win-line {
+    position: absolute;
+    height: 8px;
+    background-color: var(--secondary-color);
+    transform-origin: left center;
+    border-radius: 10px;
+    pointer-events: none;
+    transition: width 0.5s ease-out;
+}
+
+.board-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 64px;
+    opacity: 0;
+    z-index: 10;
+    backdrop-filter: blur(6px);
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: opacity 0.8s ease-out, backdrop-filter 0.8s ease, background 0.8s ease;
+    display: none;
+    overflow: visible;
+}
+
+.board-cover:hover {
+    background: transparent;
+    backdrop-filter: blur(0);
+}
+
+.board-cover:hover .win {
+    opacity: 0;
+}
+
+.win{
+    color: var(--secondary-color);
+    text-shadow: 0 0 40px var(--secondary-color);
+    z-index: 99;
+    transition: opacity 0.8s ease;
+}
+
+
+
+
+
+
+.moves{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.moves-panel{
+    width: 50%;
+    height: 100%;
+}
+
+.header{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    padding: 20px 0;
+    color: var(--secondary-color);
+    z-index: 99;
+    background-color: var(--background-color);
+    user-select: none;
+}
+
+.cross, .nought{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.cross{
+    border-right: 3px solid var(--secondary-color);
+}
+
+.moves-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-top: 2px solid rgba(255, 255, 255, 0.15);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    max-height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.cross-turns, .nought-turns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    padding-top: 25px;
+}
+
+.moves-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    padding-top: 25px;
+    position: relative;
+}
+
+.move-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.moves-grid::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(-50%);
+}
+
+.cross-box, .nought-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 20px;
+    border-radius: 10px;
+    margin: 7px 0;
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    color: var(--secondary-color);
+    font-size: 18px;
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    font-style: italic;
+}
+
+.cross-box::selection, .nought-box::selection{
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+}
+
+.cross-box:hover, .nought-box:hover{
+    background-color: rgba(255, 255, 255, 1);
+    color: var(--background-color);
+}
+
+.moves-label {
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    letter-spacing: 4px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    align-self: center;
+    user-select: none;
+}
